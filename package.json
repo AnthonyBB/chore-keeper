@@ -1,0 +1,29 @@
+{
+  "name": "chore-keeper",
+  "version": "0.0.1",
+  "description": "An assistant to help children keep track of their chores and accumulate rewards.",
+  "main": "index.js",
+  "scripts": {
+    "test": "ListChores"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnthonyBB/chore-keeper.git"
+  },
+  "keywords": [
+    "amazon",
+    "echo",
+    "alexa",
+    "voice",
+    "recognition",
+    "chores",
+    "kids",
+    "rewards"
+  ],
+  "author": "Anthony Barna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnthonyBB/chore-keeper/issues"
+  },
+  "homepage": "https://github.com/AnthonyBB/chore-keeper#readme"
+}
