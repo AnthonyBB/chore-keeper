@@ -25,13 +25,13 @@ exports.handler = function (event, context) {
             onLaunch(event.request,
                      event.session,
                      function callback(sessionAttributes, speechletResponse) {
-                        context.succeed(buildResponse(sessionAttributes, speechletResponse));
+                        context.succeed(response.buildResponse(sessionAttributes, speechletResponse));
                      });
         }  else if (event.request.type === "IntentRequest") {
             onIntent(event.request,
                      event.session,
                      function callback(sessionAttributes, speechletResponse) {
-                         context.succeed(buildResponse(sessionAttributes, speechletResponse));
+                         context.succeed(response.buildResponse(sessionAttributes, speechletResponse));
                      });
         } else if (event.request.type === "SessionEndedRequest") {
             onSessionEnded(event.request, event.session);
@@ -67,6 +67,7 @@ function onLaunch(launchRequest, session, callback) {
 function onIntent(intentRequest, session, callback) {
     console.log("onIntent requestId=" + intentRequest.requestId
                 + ", sessionId=" + session.sessionId);
+    var intentName = intentRequest.intent.name.toLowerCase();
 
     intents[intentName].execute(intentRequest.intent, session, callback);
 }
@@ -87,14 +88,13 @@ function getWelcomeResponse(callback) {
     // If we wanted to initialize the session to have some attributes we could add those here.
     var sessionAttributes = {};
     var cardTitle = "Welcome";
-    var speechOutput = "Welcome to Chore Keeper.  Say, Elexa, Ask Chore Keeper to suggest a chore to get started.";
-    
+    var speechOutput = "Welcome to Sensei Wu's Chore Keeper.  Say Elexa, Ask Sensei Wu to suggest a chore to get started.";
+
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
-    var repromptText = "Please confirm the manager is available by saying, "
-                + "Elexa, Ask the Manager which samples are hot!";
+    var repromptText = "If you would like to hear all the available chores, say Elexa, Ask Sensei Wu to tell me all my chores.";
     var shouldEndSession = true;
 
     callback(sessionAttributes,
-             buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+             response.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }

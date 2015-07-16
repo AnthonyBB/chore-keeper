@@ -1,4 +1,4 @@
-var response = require('./responseBuilder.js');
+var response = require('../responseBuilder.js');
 
 exports.execute = function(intent, session, callback) {
     var sessionAttributes = {};
