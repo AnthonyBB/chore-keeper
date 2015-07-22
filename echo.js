@@ -88,11 +88,11 @@ function getWelcomeResponse(callback) {
     // If we wanted to initialize the session to have some attributes we could add those here.
     var sessionAttributes = {};
     var cardTitle = "Welcome";
-    var speechOutput = "Welcome to Sensei Wu's Chore Keeper.  Say Elexa, Ask Sensei Wu to suggest a chore to get started.";
+    var speechOutput = "Welcome to Mal's Chore Keeper.  Say Elexa, Ask Mal to suggest a chore to get started.";
 
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
-    var repromptText = "If you would like to hear all the available chores, say Elexa, Ask Sensei Wu to tell me all my chores.";
+    var repromptText = "If you would like to hear all the available chores, say Elexa, Ask Mal to tell me all my chores.";
     var shouldEndSession = true;
 
     callback(sessionAttributes,
