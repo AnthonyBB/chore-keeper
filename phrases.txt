@@ -1,0 +1,8 @@
+AllChores
+	What are my chores?
+	Chores?
+	Which chores do I have?
+	Tell me about my chores.
+	To tell me about my chores.
+	To list my chores.
+	

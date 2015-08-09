@@ -1,0 +1,2 @@
+D:\Source\node\chore-keeper\obj\Debug\NodejsApp1.njsprojResolveAssemblyReference.cache
+D:\Source\node\chore-keeper\bin\Microsoft.NodejsTools.WebRole.dll
