@@ -1,20 +1,20 @@
 var assert = require("assert");
+
 var responseBuilder = require('../../responseBuilder.js');
 var choreRepository = require('../../repositories/choreRepository.js');
 var intent = require("../../intents/allChores.js");
 
-var getAllSingleChore = function() {
-  return [
+var getAllSingleChore = function(next) {
+  next(null, [
       {
           name: "breakfast",
           description: "Eat breakfast",
           points: 1
-      }];
+      }]);
 };
 
-var getAllMultipleChores = function() {
-  return [
-      {
+var getAllMultipleChores = function(next) {
+  next(null, [{
           name: "breakfast",
           description: "Eat breakfast",
           points: 1
@@ -28,14 +28,18 @@ var getAllMultipleChores = function() {
           name: "brush teeth",
           description: "Brush Teeth",
           points: 1
-      }];
+      }]);
 };
 
-var getAllNoChores = function() {
-  return [ ];
+var getAllNoChores = function(next) {
+  next(null, []);
 };
 
 describe('The all chores intent.. ', function() {
+  beforeEach(function() {
+    //delete require.cache[require.resolve('../../repositories/choreRepository.js')];
+    //choreRepository = require('../../repositories/choreRepository.js');
+  });
   describe('when calling execute with no chores... ', function () {
 		it('should return no chores.', function (done) {
       choreRepository.getAll = getAllNoChores;

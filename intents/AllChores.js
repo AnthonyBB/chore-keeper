@@ -9,22 +9,22 @@ exports.execute = function(intent, session, callback) {
     // I could work with the result html/json here.  I could also just return it
     console.log("allChores:execute: (" + intent + ", " + session + ", " + callback + ")");
     console.log("choreRepository", choreRepository);
-    var chores = choreRepository.getAll();
+    choreRepository.getAll(function(err, chores) {
+        console.log("chores", chores);
+        var choreArray = [];
+         for(var i=0;i<chores.length;i++){
+            choreArray.push(chores[i].name);
+        }
 
-    console.log("chores", chores);
-    var choreArray = [];
-     for(var i=0;i<chores.length;i++){
-        choreArray.push(chores[i].name);
-    }
+        if(choreArray.length === 0)
+        {
+            speechOutput = "You have no chores.";
+        }
 
-    if(choreArray.length === 0)
-    {
-        speechOutput = "You have no chores.";
-    }
-
-    speechOutput = getChoreResponse(choreArray);
-    callback(sessionAttributes,
-        response.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+        speechOutput = getChoreResponse(choreArray);
+        callback(sessionAttributes,
+            response.buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    });
 }
 
 exports.inject = function(resp, choreRepo)

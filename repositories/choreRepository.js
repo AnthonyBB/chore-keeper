@@ -1,9 +1,18 @@
-exports.getAll = function() {
-    return choreRepository.getAll();
+exports.getAll = function(next) {
+    console.log("next", next);
+    return choreRepository.getAll(next);
 }
-
+exports.add = function(chore, next) {
+    console.log("chore", chore);
+    console.log("next", next);
+    return choreRepository.add(chore, next);
+}
 var choreRepository = (function () {
     "use strict";
+    var mongodb = require("mongodb");
+    var mongoUrl = "mongodb://admin:admin@ds033153.mongolab.com:33153/chore-keeper";
+    var database = null;
+
     var that = {};
     var chores = [
     {
@@ -87,9 +96,72 @@ var choreRepository = (function () {
         points: 1
     }];
 
-    that.getAll = function () {
-        return chores;
+    var getDb = function(next) {
+            if(!database)
+            {
+                mongodb.MongoClient.connect(mongoUrl, function(err, db)
+                {
+                    if(err)
+                    {
+                        next(err, null);
+                    }
+                    else
+                    {
+                        database = db;
+                        next(null, database);
+                    }
+                });
+            }
+            else
+            {
+                next(null, database);
+            }
     };
 
+    that.getAll = function (next) {
+        getDb(function( err, db) {
+            if(err)
+            {
+                console.log("Failed to initialize database: " + err);
+                next(err, null);
+            }
+            else
+            {
+                var chores = db.collection("chores").find().toArray(function(err, results) {
+                    if(err)
+                    {
+                        console.log("Failed to retrieve data: " + err);
+                        next(err, null);
+                    }
+                    else
+                    {
+                    console.log("results", results);
+                    next(null, results);
+                    }
+                });
+            }
+        });
+    };
+
+    that.add = function(chore, next) {
+        getDb(function(err, db) {
+            if(err)
+            {
+                console.log("Failed to initialize database: " + err);
+                next(err, null);
+            }
+            else
+            {
+                db.collection("chores").insert(chore, function(err) {
+                    if(err)
+                    {
+                        console.log("Failed to insert chore: " + err);
+                        next(err, null);
+                    }
+                    next(null, null);
+                });
+            }
+        });
+    }
     return that;
 })();

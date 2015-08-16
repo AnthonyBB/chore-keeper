@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/AnthonyBB/chore-keeper/issues"
   },
-  "homepage": "https://github.com/AnthonyBB/chore-keeper#readme"
+  "homepage": "https://github.com/AnthonyBB/chore-keeper#readme",
+  "dependencies": {
+    "mongodb": "^2.0.41"
+  }
 }
